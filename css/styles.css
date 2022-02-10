@@ -42,6 +42,7 @@ p {
   object-fit: cover;
   filter: blur(10px);
   cursor: pointer;
+  transition: filter 0.5s;
 }
 
 .non-filter {
