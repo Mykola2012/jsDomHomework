@@ -48,42 +48,81 @@ const slides = [
   },
 ];
 
-const slider = new Slider(slides);
+try {
+  const slider = new Slider(slides);
 
-const [elImgOne, elImgTwo, elImgThree] = document.querySelectorAll("img");
-const [prevImg, nextImg] = document.querySelectorAll(".prev-next-img");
-
-updateSlideAll();
-
-nextImg.onclick = () => {
-  slider.incSlideIndex();
+  const [elImgOne, elImgTwo, elImgThree] = document.querySelectorAll("img");
+  const [prevImg, nextImg] = document.querySelectorAll(".prev-next-img");
 
   updateSlideAll();
-};
 
-prevImg.onclick = () => {
-  slider.decSlideIndex();
+  nextImg.onmouseover = () => {
+    nextImg.classList.add("non-filter");
+  };
 
-  updateSlideAll();
-};
+  prevImg.onmouseover = () => {
+    prevImg.classList.add("non-filter");
+  };
 
-function updateSlideAll() {
-  updateSlideOne(slider.currentSlideFist);
-  updateSlideTwo(slider.currentSlideSecond);
-  updateSlideThree(slider.currentSlideThird);
-}
+  nextImg.onmouseout = () => {
+    nextImg.classList.remove("non-filter");
+  };
 
-function updateSlideOne(currentSlide) {
-  elImgOne.src = currentSlide.src;
-  elImgOne.alt = currentSlide.alt;
-}
+  prevImg.onmouseout = () => {
+    prevImg.classList.remove("non-filter");
+  };
 
-function updateSlideTwo(currentSlide) {
-  elImgTwo.src = currentSlide.src;
-  elImgTwo.alt = currentSlide.alt;
-}
+  nextImg.onclick = () => {
+    slider.incSlideIndex();
 
-function updateSlideThree(currentSlide) {
-  elImgThree.src = currentSlide.src;
-  elImgThree.alt = currentSlide.alt;
+    updateSlideAll();
+  };
+
+  prevImg.onclick = () => {
+    slider.decSlideIndex();
+
+    updateSlideAll();
+  };
+
+  function updateSlideAll() {
+    updateSlideOne(slider.currentSlideFist);
+    updateSlideTwo(slider.currentSlideSecond);
+    updateSlideThree(slider.currentSlideThird);
+  }
+
+  function updateSlideOne(currentSlide) {
+    elImgOne.src = currentSlide.src;
+    elImgOne.alt = currentSlide.alt;
+  }
+
+  function updateSlideTwo(currentSlide) {
+    elImgTwo.src = currentSlide.src;
+    elImgTwo.alt = currentSlide.alt;
+  }
+
+  function updateSlideThree(currentSlide) {
+    elImgThree.src = currentSlide.src;
+    elImgThree.alt = currentSlide.alt;
+  }
+} catch (err) {
+  const [imgOne, imgTwo, imgThree] = document.querySelectorAll("img");
+  if (err instanceof TypeError) {
+    console.log("TypeError :>> Argument must be type number");
+    imgOne.src =
+      "https://static8.depositphotos.com/1003238/882/v/600/depositphotos_8821893-stock-illustration-bamboo-on-white.jpg";
+    imgTwo.src =
+      "https://static8.depositphotos.com/1003238/882/v/600/depositphotos_8821893-stock-illustration-bamboo-on-white.jpg";
+    imgThree.src =
+      "https://static8.depositphotos.com/1003238/882/v/600/depositphotos_8821893-stock-illustration-bamboo-on-white.jpg";
+  } else if (err instanceof RangeError) {
+    console.log("RangeError :>> Argument must be > 0 and < argument.length");
+    imgOne.src =
+      "https://static8.depositphotos.com/1003238/882/v/600/depositphotos_8821893-stock-illustration-bamboo-on-white.jpg";
+    imgTwo.src =
+      "https://static8.depositphotos.com/1003238/882/v/600/depositphotos_8821893-stock-illustration-bamboo-on-white.jpg";
+    imgThree.src =
+      "https://static8.depositphotos.com/1003238/882/v/600/depositphotos_8821893-stock-illustration-bamboo-on-white.jpg";
+  } else {
+    console.log("err :>> ", err);
+  }
 }
