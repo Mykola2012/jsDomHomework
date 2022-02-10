@@ -55,4 +55,5 @@ p {
   height: 400px;
   margin-left: 60px;
   margin-right: 60px;
+  object-fit: cover;
 }
