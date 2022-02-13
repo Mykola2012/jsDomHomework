@@ -85,44 +85,33 @@ try {
   };
 
   function updateSlideAll() {
-    updateSlideOne(slider.currentSlideFist);
-    updateSlideTwo(slider.currentSlideSecond);
-    updateSlideThree(slider.currentSlideThird);
+    updateSlide(elImgOne, slider.currentSlideFist);
+    updateSlide(elImgTwo, slider.currentSlideSecond);
+    updateSlide(elImgThree, slider.currentSlideThird);
   }
 
-  function updateSlideOne(currentSlide) {
-    elImgOne.src = currentSlide.src;
-    elImgOne.alt = currentSlide.alt;
-  }
-
-  function updateSlideTwo(currentSlide) {
-    elImgTwo.src = currentSlide.src;
-    elImgTwo.alt = currentSlide.alt;
-  }
-
-  function updateSlideThree(currentSlide) {
-    elImgThree.src = currentSlide.src;
-    elImgThree.alt = currentSlide.alt;
+  function updateSlide(el, currentSlide) {
+    el.src = currentSlide.src;
+    el.alt = currentSlide.alt;
   }
 } catch (err) {
   const [imgOne, imgTwo, imgThree] = document.querySelectorAll("img");
+  function errImg(pevImg, mainImg, nextImg) {
+    pevImg.src =
+      "https://static8.depositphotos.com/1003238/882/v/600/depositphotos_8821893-stock-illustration-bamboo-on-white.jpg";
+    mainImg.src =
+      "https://static8.depositphotos.com/1003238/882/v/600/depositphotos_8821893-stock-illustration-bamboo-on-white.jpg";
+    nextImg.src =
+      "https://static8.depositphotos.com/1003238/882/v/600/depositphotos_8821893-stock-illustration-bamboo-on-white.jpg";
+  }
   if (err instanceof TypeError) {
     console.log("TypeError :>> Argument must be type number");
-    imgOne.src =
-      "https://static8.depositphotos.com/1003238/882/v/600/depositphotos_8821893-stock-illustration-bamboo-on-white.jpg";
-    imgTwo.src =
-      "https://static8.depositphotos.com/1003238/882/v/600/depositphotos_8821893-stock-illustration-bamboo-on-white.jpg";
-    imgThree.src =
-      "https://static8.depositphotos.com/1003238/882/v/600/depositphotos_8821893-stock-illustration-bamboo-on-white.jpg";
+    errImg(imgOne, imgTwo, imgThree);
   } else if (err instanceof RangeError) {
     console.log("RangeError :>> Argument must be > 0 and < argument.length");
-    imgOne.src =
-      "https://static8.depositphotos.com/1003238/882/v/600/depositphotos_8821893-stock-illustration-bamboo-on-white.jpg";
-    imgTwo.src =
-      "https://static8.depositphotos.com/1003238/882/v/600/depositphotos_8821893-stock-illustration-bamboo-on-white.jpg";
-    imgThree.src =
-      "https://static8.depositphotos.com/1003238/882/v/600/depositphotos_8821893-stock-illustration-bamboo-on-white.jpg";
+    errImg(imgOne, imgTwo, imgThree);
   } else {
     console.log("err :>> ", err);
+    errImg(imgOne, imgTwo, imgThree);
   }
 }

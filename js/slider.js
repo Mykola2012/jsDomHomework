@@ -1,19 +1,12 @@
 "use strict";
 
 class Slider {
-  constructor(
-    slides,
-    slideIndexOne = 0,
-    slideIndexTwo = 1,
-    slideIndexThree = 2
-  ) {
+  constructor(slides, currentSlideIndex = 0) {
     this.slides = slides;
-    this.slideIndexOne = slideIndexOne;
-    this.slideIndexTwo = slideIndexTwo;
-    this.slideIndexThree = slideIndexThree;
+    this.currentSlideIndex = currentSlideIndex;
   }
 
-  set slideIndexOne(v) {
+  set currentSlideIndex(v) {
     if (typeof v !== "number") {
       throw TypeError();
     }
@@ -25,75 +18,40 @@ class Slider {
     ) {
       throw RangeError();
     }
-    this._slideIndexOne = v;
+    this._currentSlideIndex = v;
   }
 
-  set slideIndexTwo(v) {
-    if (typeof v !== "number") {
-      throw TypeError();
-    }
-    if (
-      Number.isNaN(v) ||
-      v < 0 ||
-      v > this.slides.length ||
-      !Number.isInteger(v)
-    ) {
-      throw RangeError();
-    }
-    this._slideIndexTwo = v;
-  }
-
-  set slideIndexThree(v) {
-    if (typeof v !== "number") {
-      throw TypeError();
-    }
-    if (
-      Number.isNaN(v) ||
-      v < 0 ||
-      v > this.slides.length ||
-      !Number.isInteger(v)
-    ) {
-      throw RangeError();
-    }
-    this._slideIndexThree = v;
+  get currentSlideIndex() {
+    return this._currentSlideIndex;
   }
 
   incSlideIndex() {
-    this.slideIndexOne = (this.slideIndexOne + 1) % this.slides.length;
-    this.slideIndexTwo = (this.slideIndexTwo + 1) % this.slides.length;
-    this.slideIndexThree = (this.slideIndexThree + 1) % this.slides.length;
+    this.currentSlideIndex = this.nextSlideIndex;
   }
 
   decSlideIndex() {
-    this.slideIndexOne =
-      (this.slideIndexOne - 1 + this.slides.length) % this.slides.length;
-    this.slideIndexTwo =
-      (this.slideIndexTwo - 1 + this.slides.length) % this.slides.length;
-    this.slideIndexThree =
-      (this.slideIndexThree - 1 + this.slides.length) % this.slides.length;
+    this.currentSlideIndex = this.prevSlideIndex;
   }
 
-  get slideIndexOne() {
-    return this._slideIndexOne;
+  get prevSlideIndex() {
+    return (
+      (this.currentSlideIndex - 1 + this.slides.length) % this.slides.length
+    );
   }
 
-  get slideIndexTwo() {
-    return this._slideIndexTwo;
-  }
-
-  get slideIndexThree() {
-    return this._slideIndexThree;
+  get nextSlideIndex() {
+    return (this.currentSlideIndex + 1) % this.slides.length;
   }
 
   get currentSlideFist() {
-    return this.slides[this._slideIndexOne];
+    return this.slides[this.prevSlideIndex];
   }
 
   get currentSlideSecond() {
-    return this.slides[this._slideIndexTwo];
+    return this.slides[this._currentSlideIndex];
   }
 
   get currentSlideThird() {
-    return this.slides[this._slideIndexThree];
+    return this.slides[this.nextSlideIndex];
   }
 }
